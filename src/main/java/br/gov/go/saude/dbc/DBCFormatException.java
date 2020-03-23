@@ -2,13 +2,16 @@ package br.gov.go.saude.dbc;
 
 import java.io.IOException;
 
+/**
+ * Signals a malformed DBC input.
+ */
 public class DBCFormatException extends IOException {
 
-  public DBCFormatException(int code) {
-    super(String.format("Couldn't explode/blast file. See blast.c [exit code: %d]", code));
-  }
+    DBCFormatException(String message) {
+        super(message);
+    }
 
-  public DBCFormatException(String message) {
-    super(message);
-  }
+    DBCFormatException(String message, Exception e) {
+        super(message, e);
+    }
 }

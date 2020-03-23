@@ -1,69 +1,56 @@
 package br.gov.go.saude.dbc;
 
-import net.sf.mpxj.primavera.common.Blast;
-
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class DBCProcessor {
     private final InputStream input;
-    private final OutputStream output;
-    private final Blast blast;
 
-    public DBCProcessor(InputStream input, OutputStream output) {
+    public DBCProcessor(InputStream input) {
         this.input = input;
-        this.output = output;
-        this.blast = new Blast();
     }
 
-    private static int parseShortLittleEndian(int a, int b) {
-        return (b << 8) + (a & 0xff);
+    private static int readLittleEndian(int a, int b) {
+        return (a & 0xff) + (b << 8);
     }
 
-    public void copyHeader() throws IOException {
-        // read first 8 bytes of the header
+    public byte[] readHeader() throws IOException {
+        // first 8 bytes in the header
         byte[] headerStart = new byte[10];
         readAndCheck(headerStart);
 
-        // read header size at bytes 8-9
-        int headerLength = parseShortLittleEndian(headerStart[8], headerStart[9]);
+        // header size at bytes 8-9
+        int headerLength = readLittleEndian(headerStart[8], headerStart[9]);
 
-        byte[] headerRemaining = new byte[headerLength - headerStart.length];
-        readAndCheck(headerRemaining);
 
-        // write header
-        output.write(headerStart);
-        output.write(headerRemaining);
+        byte[] header = new byte[headerLength];
+        System.arraycopy(headerStart, 0, header, 0, 10);
+
+        // remaining bytes in the header
+        readAndCheck(header, 10, headerLength - 10);
 
         // jump to position (headerLength + 4)
         check(input.skip(4), 4);
+
+        return header;
     }
 
     private void readAndCheck(byte[] data) throws IOException {
-        check(input.read(data), data.length);
+        readAndCheck(data, 0, data.length);
+    }
+
+    private void readAndCheck(byte[] data, int offset, int len) throws IOException {
+        check(input.read(data, offset, len), len);
     }
 
     private static void check(long actual, long expected) throws DBCFormatException {
         if (actual != expected)
-            throw new DBCFormatException("Wrong DBC file header format");
+            throw new DBCFormatException("Wrong DBC file header format, premature end of file");
     }
 
-    public void blast() throws IOException {
-        int code = blast.blast(input, output);
-        if (code != 0)
-            throw new DBCFormatException(code);
-    }
 
-    public void decompress() throws IOException {
-        copyHeader();
-        blast();
-    }
-
-    public static void blast(InputStream is, OutputStream os) throws IOException {
-        new DBCProcessor(is, os).blast();
-    }
-
-    public static void decompress(InputStream is, OutputStream os) throws IOException {
-        new DBCProcessor(is, os).decompress();
+    public static byte[] read(InputStream is) throws IOException {
+        return new DBCProcessor(is).readHeader();
     }
 
 }
