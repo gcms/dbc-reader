@@ -64,7 +64,15 @@ public class BlastInputStream extends InputStream {
      */
     @Override
     public int read(byte[] buf, int offset, int len) throws IOException, BlastFormatException {
-        return checkBuffer() ? buffer.read(buf, offset, len) : -1;
+        if (!checkBuffer())
+            return -1;
+
+        int totalRead = 0;
+        while (totalRead < len && checkBuffer()) {
+            totalRead += buffer.read(buf, offset + totalRead, len - totalRead);
+        }
+
+        return totalRead;
     }
 
     private boolean checkBuffer() throws IOException {
