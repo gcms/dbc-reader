@@ -1,7 +1,7 @@
-package br.gov.go.saude.blast;
+package com.github.gcms.blast;
 
 
-import static br.gov.go.saude.blast.Blast.MAX_CODE_LEN;
+import static com.github.gcms.blast.Blast.MAX_CODE_LEN;
 
 /**
  * Class to represent a Huffman table.

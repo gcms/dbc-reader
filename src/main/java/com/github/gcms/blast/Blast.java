@@ -1,4 +1,4 @@
-package br.gov.go.saude.blast;
+package com.github.gcms.blast;
 /*
  * Blast is a class which handles decompression of data compressed using
  * the PKWare Compression Library. (Blast being an alternative to explode -

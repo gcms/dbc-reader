@@ -1,8 +1,8 @@
-package br.gov.go.saude.blast;
+package com.github.gcms.blast;
 
 import java.io.IOException;
 
-import static br.gov.go.saude.blast.Blast.*;
+import static com.github.gcms.blast.Blast.*;
 
 /**
  * Decompress data and keep decompression algorithm state.

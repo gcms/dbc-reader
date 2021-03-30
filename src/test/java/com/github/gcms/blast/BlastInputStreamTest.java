@@ -1,11 +1,11 @@
-package br.gov.go.saude.blast;
+package com.github.gcms.blast;
 
 
 import org.junit.Test;
 
 import java.io.InputStream;
 
-import static br.gov.go.saude.TestUtils.getContent;
+import static com.github.gcms.TestUtils.getContent;
 import static org.junit.Assert.assertEquals;
 
 public class BlastInputStreamTest {

@@ -1,4 +1,4 @@
-package br.gov.go.saude.blast;
+package com.github.gcms.blast;
 
 import java.io.IOException;
 

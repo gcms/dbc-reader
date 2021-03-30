@@ -1,4 +1,4 @@
-package br.gov.go.saude;
+package com.github.gcms;
 
 import org.junit.Assert;
 

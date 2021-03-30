@@ -1,9 +1,9 @@
-package br.gov.go.saude.blast;
+package com.github.gcms.blast;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import static br.gov.go.saude.blast.Blast.MAX_CODE_LEN;
+import static com.github.gcms.blast.Blast.MAX_CODE_LEN;
 
 /**
  * Class for reading bits and decoding the input using Huffman tables.

@@ -1,7 +1,7 @@
-package br.gov.go.saude.dbc;
+package com.github.gcms.dbc;
 
 
-import br.gov.go.saude.blast.BlastInputStream;
+import com.github.gcms.blast.BlastInputStream;
 
 import java.io.FilterInputStream;
 import java.io.InputStream;

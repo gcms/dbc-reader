@@ -1,4 +1,4 @@
-package br.gov.go.saude.dbc;
+package com.github.gcms.dbc;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;

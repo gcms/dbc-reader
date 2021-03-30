@@ -1,4 +1,4 @@
-package br.gov.go.saude.dbc;
+package com.github.gcms.dbc;
 
 import org.junit.Test;
 
@@ -6,7 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import static br.gov.go.saude.TestUtils.assertStreamsEquals;
+import static com.github.gcms.TestUtils.assertStreamsEquals;
 import static org.junit.Assert.*;
 
 public class DBCInputStreamTest {
